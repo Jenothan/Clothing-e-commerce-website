@@ -10,6 +10,8 @@ import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Search, Filter, X, Grid, List } from "lucide-react";
+import { useRouter } from "next/navigation";
+import React from 'react';
 
 const categories = {
   men: [
@@ -238,7 +240,7 @@ const categories = {
 
 accessories : [
   {
-    id: 1,
+    product_id: 1,
     name: "Classic Denim Jacket",
     newprice: "$59",
     oriprice: "$79",
@@ -250,7 +252,7 @@ accessories : [
     category: "Shoes"
   },
   {
-    id: 2,
+    product_id: 2,
     name: "Striped Cotton T-Shirt",
     newprice:"$19",
     oriprice: "$34",
@@ -262,7 +264,7 @@ accessories : [
     category: "Shoes"
   },
   {
-    id: 3,
+    product_id: 3,
     name: "Premium Leather Boots",
     newprice: "$80",
     oriprice: "$120",
@@ -274,7 +276,7 @@ accessories : [
     category: "Shoes"
   },
   {
-    id: 4,
+    product_id: 4,
     name: "Elegant Summer Dress",
     newprice: "$60",
     oriprice: "$52",
@@ -286,7 +288,7 @@ accessories : [
     category: "Shoes"
   },
   {
-    id: 5,
+    product_id: 5,
     name: "Designer Sunglasses",
     newprice: "$43",
     oriprice: "$34",
@@ -298,7 +300,7 @@ accessories : [
     category: "Shoes"
   },
   {
-    id: 6,
+    product_id: 6,
     name: "Casual Sneakers",
     newprice: "$39",
     oriprice: "$52",
@@ -312,7 +314,7 @@ accessories : [
 ],
 products: [
   {
-    id: 5,
+    product_id: 5,
     name: "Designer Sunglasses",
     newprice: "$43",
     oriprice: "$34",
@@ -371,8 +373,9 @@ type FilterState = {
   sortBy: string;
 };
 
-export default function CategoryPage({ params }: { params: { category: string } }) {
-const { category } =  params;
+export default function CategoryPage({ params }: { params: Promise<{ category: string }> }) {
+  const router = useRouter();
+const { category } = React.use(params);
   const [showFilters, setShowFilters] = useState(false);
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
   const [filters, setFilters] = useState<FilterState>({
@@ -689,17 +692,22 @@ const { category } =  params;
                   : 'grid-cols-2'
               }`}>
                 {filteredProducts.map((product, idx) => (
-                  <ProductCard
-                    key={idx}
-                    name={product.name}
-                    newprice={product.newprice}
-                    oriprice={product.oriprice}
-                    image={product.image}
-                    cardDescritpion={product.cardDescritpion}
-                    viewMode={viewMode}
-                  />
+                  <div
+                    key={`${product.product_id ?? 'no-id'}-${idx}`}
+                    onClick={() => router.push(`/customer/category/${product.category}/${product.product_id}`)}
+                    className="cursor-pointer"
+                  >
+                    <ProductCard
+                      name={product.name}
+                      newprice={product.newprice}
+                      oriprice={product.oriprice}
+                      image={product.image}
+                      cardDescritpion={product.cardDescritpion}
+                      viewMode={viewMode}
+                    />
+                  </div>
                 ))}
-              </div>
+                </div>
             )}
           </div>
         </div>

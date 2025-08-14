@@ -39,7 +39,7 @@ export default function Home() {
       {/* Page Content */}
       <div className="pt-16">
         <div className="grid grid-cols-3 md:grid-cols-6 gap-3 mt-3">
-          <Link href={"/customer/category/men/2"}> go to home </Link>
+          <Link href={"/customer/jenothan"}> go to home </Link>
         </div>
         {/* dummy long content to test scroll */}
         <div className="h-[2000px] bg-gray-100"></div>

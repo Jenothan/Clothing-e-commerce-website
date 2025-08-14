@@ -169,13 +169,13 @@ export default function ProductCard({
       </div>
       
       {/* Card Footer */}
-      <div className="hidden md:block p-2 pt-0 md:p-4">
+      {/* <div className="hidden md:block p-2 pt-0 md:p-4">
         <button 
           className="w-full bg-blue-400 hover:bg-blue-500 text-white rounded-full font-semibold text-xs md:text-base py-1 md:py-2 transition-colors"
         >
           Add to Cart
         </button>
-      </div>
+      </div> */}
     </div>
   );
 }
